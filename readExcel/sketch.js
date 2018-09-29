@@ -17,17 +17,17 @@ function draw() {
   // put drawing code here
 }
 setupTable = function (data) {
-  var parentDiv = createDiv();
-  var headerDiv = createDiv().parent(parentDiv);
-  for (var e of data.columns) {
-    createSpan(e).parent(headerDiv);
-  }
-  myRows = data.getRows();
-  for (var i = 0; i < 50; i++) {
-    var rowDiv = createDiv().parent(parentDiv);
-    for (var e of data.columns) {
-      createSpan(myRows[i].obj[e]).parent(rowDiv);
-    }
-  }
+  // var parentDiv = createDiv();
+  // var headerDiv = createDiv().parent(parentDiv);
+  // for (var e of data.columns) {
+  //   createSpan(e).parent(headerDiv);
+  // }
+  // myRows = data.getRows();
+  // for (var r of myRows) {
+  //   // var rowDiv = createDiv().parent(parentDiv);    .parent(rowDiv)
+  //   for (var e of data.columns) {
+  //     createSpan(r.obj[e]);
+  //   }
+  // }
 
 }
