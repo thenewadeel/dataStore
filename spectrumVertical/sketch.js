@@ -2,11 +2,11 @@
 var mic, fft, barSize, sizeSlider, x;
 var range = [];
 var song, amp, noise;
-var upperLimit = 230;
+var population = 230;
 var accumulator = 0;
+var ants = [];
 
 function preload() {
-  // song = loadSound('../5hrs.mp3');
 }
 
 function setup() {
@@ -21,42 +21,47 @@ function setup() {
   // noise = new p5.Noise();
   colorMode(HSB);
   range = new Array(1024).fill(0);
-  range = range.map(x => random(height));
+  range = range.map(x => random(width));
+  ants = new Array(population).fill(0);
+  ants = ants.map(x => new Ant());
 }
 
 //TODO add mousedragged panning system
 
 function draw() {
   background(0, 0, 0, 0.15);
-  stroke(78,255,255)
-  rect(0.9*width,0,10,accumulator);
+  translate(posX ? posX : 0, posY ? posY : 0)
+  stroke(78, 255, 255)
+  rect(0.9 * width, 0, 10, accumulator);
 
   // fft.smooth();
   // fft.log
   // noise.start();
   var spectrum = fft.analyze();
   for (i = 0; i < spectrum.length; i++) {
-    if (i < upperLimit) {
-      var comp = map(i, 0, upperLimit, 360, 0);
+    if (i < population) {
+      var comp = map(i, 0, population, 360, 0);
       stroke(comp, 255, 255);
       var r = map(spectrum[i], 0, 255, 0.1, 225);
-      x = map(i, 0, upperLimit, 0, width);
-      ellipse(x, range[i], r)
+      x = map(i, 0, population, 0, width);
+      y = map(i, 0, population, height, 0);
+      ellipse(width / 2 + ants[i].dist, y, r);
+      ants[i].move();
     } else {
       accumulator += spectrum[i];
     }
   }
 }
-  // var waveform = fft.waveform();  // analyze the waveform
-  // beginShape();
-  // stroke(map(mouseX,0,width,0,360), 127, 200);
-  // // strokeWeight(5);
-  // for (var i = 0; i < waveform.length; i++){
-  //   var wx = map(i, 0, waveform.length, 0, width);
-  //   var wy = map(waveform[i], -1, 1, height, 0);
-  //   vertex(wx, wy);
-  // }
-  // endShape();
+// var waveform = fft.waveform();  // analyze the waveform
+// beginShape();
+// stroke(map(mouseX,0,width,0,360), 127, 200);
+// // strokeWeight(5);
+// for (var i = 0; i < waveform.length; i++){
+//   var wx = map(i, 0, waveform.length, 0, width);
+//   var wy = map(waveform[i], -1, 1, height, 0);
+//   vertex(wx, wy);
+// }
+// endShape();
 
 
 function drawFuzzy() {

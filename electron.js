@@ -1,4 +1,4 @@
-/// <reference path="../p5.global-mode.d.ts" />
+/// <reference path="p5.global-mode.d.ts" />
 function Electron() {
     this.loc = createVector(random(width), random(height));
     this.vel = createVector(0.1, 0);

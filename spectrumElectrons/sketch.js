@@ -19,6 +19,7 @@ function setup() {
 }
 
 function draw() {
+  translate(posX?posX:0,posY?posY:0)
   var spectrum = fft.analyze();
   background(0, 0, 0, 0.1);
   stroke(129)
