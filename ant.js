@@ -1,4 +1,4 @@
-/// <reference path="p5.global-mode.d.ts" />
+/// <reference path="lib/p5.global-mode.d.ts" />
 function Ant() {
     // this.startx=
     this.dist = 0;

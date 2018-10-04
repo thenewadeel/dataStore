@@ -1,2 +1,3 @@
-# dataStore
-random points coming to flock on text
+## dataStore
+
+A collection of stuff that I'm doing, inspired by p5
