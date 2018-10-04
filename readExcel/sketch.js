@@ -2,8 +2,9 @@
 
 var myData, myRows, myTable;
 var myColumns;
+
 function preload() {
-  myData = = loadTable("data.csv", "header")
+  myData = loadTable("data2.csv", "header")
   // while(myData===undefined){}
   // console.log('dat now?', await loadTable("data.csv", "header"));
 }
@@ -17,17 +18,30 @@ tableSetup = function (rawTableData) {
         "title": x,
         "field": x,
         "sorter": "string",
-        "width": 200,
+        // "width": 200,
         "editor": true,
-        "align": "right",
-        "formatter": "progress",
+        headerFilter:true,
+        // "align": "right",
+        // "formatter": "progress",
         "cellClick": function (e, cell) {
           console.log("cell click", cell)
         },
       }
-    })
+    },),
+    // height:"100%",
+    pagination:"local", //enable local pagination.
+    paginationSize:20, // this option can take any positive integer value (default = 10)
+    placeholder:"No Data Available", //display message to user on empty table
+    // virtualDomBuffer:300 //set virtual DOM buffer to 300px
   });
-  myTable.setData(myData);
+  myTable.setData(myData.getRows().map(x=>{
+    return x.obj;
+  }));
+  // for (var r = 0; r < myData.getRowCount(); r++)
+  //   for (var c = 0; c < myData.getColumnCount(); c++) {
+  //     document.appendChild(createDiv(myData.getString(r, c)));
+  //   }
+
 };
 
 function setup() {
