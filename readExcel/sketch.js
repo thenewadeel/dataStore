@@ -2,6 +2,7 @@
 
 var myData, myRows, myTable;
 var myColumns;
+var fieldStuff = [];
 var RANKS = {
   "Lt Col": 0,
   "Maj": 1,
@@ -26,31 +27,25 @@ sorterRank = function (a, b, aRow, bRow, column, dir, sorterParams) {
   //dir - the direction of the sort ("asc" or "desc")
   //sorterParams - sorterParams object from column definition array
   // console.log('sorter invoked',a,b)
-  return RANKS[b] - RANKS[a]; //you must return the difference between the two values
+  // if(a=='SM')console.log(RANKS[a])
+  return RANKS[a] - RANKS[b]; //you must return the difference between the two values
 }
 sortSelect = function (columnName) {
-    if (columnName == 'Rank')
-      return sorterRank;
-  } 
-  // {
-  //   title: "Gender",
-  //   field: "gender",
-  //   editor: "select",
-  //   editorParams: {
-  //     "male": "Male",
-  //     "female": "Female"
-  //   },
-  //   headerFilter: true,
-  //   headerFilterParams: {
-  //     "male": "Male",
-  //     "female": "Female"
-  //   }
-  // },
-  function preload() {
-    myData = loadTable("data2.csv", "header")
-    // while(myData===undefined){}
-    // console.log('dat now?', await loadTable("data.csv", "header"));
-  }
+  if (columnName == 'Rank')
+    return sorterRank;
+}
+//define custom mutator
+// var fieldMutator = function (value, data, type, params, component) {
+//   //value - original value of the cell
+//   //data - the data for the row
+//   //type - the type of mutation occurring  (data|edit)
+//   //params - the mutatorParams object from the column definition
+//   //component - when the "type" argument is "edit", this contains the cell component for the edited cell, otherwise it is the column component for the column
+//   // console.log('val', value, 'data', data)
+//   return value; //> mutatorParams.threshold; //return the new value for the cell data.
+// }
+
+
 
 tableSetup = function (rawTableData) {
   console.log('tableSetup Received:', rawTableData)
@@ -68,26 +63,142 @@ tableSetup = function (rawTableData) {
         // align: "center",
         // width: 40
       },
-      ...rawTableData.columns.map(x => {
-        // console.log('rawElem', x)
-        // if(x!=='Ser')
-        return {
-          "title": x,
-          "field": x,
-          "sorter": "string",
-          // "width": 200,
-          "editor": true,
-          headerFilter: true,
-          sorter: sortSelect(x),
-          // "align": "right",
-          // "formatter": "progress",
-          "cellClick": function (e, cell) {
-            console.log("cell click", cell)
-          },
-        }
-      }, ).filter(y => {
-        if (y.title !== 'Ser') return y;
-      })
+      {
+        "title": "Army No",
+        "field": "Army No",
+        "sorter": "string",
+        // "width": 200,
+        "editor": true,
+        headerFilter: true,
+        // sorter: sortSelect(x),
+        // "align": "right",
+        // "formatter": "progress",
+        "cellClick": function (e, cell) {
+          console.log("cell click", cell)
+        },
+      },
+      {
+        "title": "Rank",
+        "field": "Rank",
+        "sorter": sorterRank,
+        // "width": 200,
+        "editor": true,
+        headerFilter: true,
+        // sorter: sortSelect(x),
+        // "align": "right",
+        // "formatter": "progress",
+        // mutator:fieldMutator,
+        "cellClick": function (e, cell) {
+          console.log("cell click", cell)
+        },
+      },
+      {
+        "title": "Name",
+        "field": "Name",
+        // "sorter": sorterRank,
+        // "width": 200,
+        "editor": true,
+        headerFilter: true,
+        // sorter: sortSelect(x),
+        // "align": "right",
+        // "formatter": "progress",
+        // mutator:fieldMutator,
+        "cellClick": function (e, cell) {
+          console.log("cell click", cell)
+        },
+      },
+      {
+        "title": "Company",
+        "field": "Coy",
+        // "sorter": sorterRank,
+        // "width": 200,
+        "editor": true,
+        headerFilter: true,
+        // sorter: sortSelect(x),
+        // "align": "right",
+        // "formatter": "progress",
+        // mutator:fieldMutator,
+        "cellClick": function (e, cell) {
+          console.log("cell click", cell)
+        },
+      },
+      {
+        "title": "Security Clearance Auth",
+        "field": "Security Clearance Auth",
+        // "sorter": sorterRank,
+        // "width": 200,
+        "editor": true,
+        headerFilter: true,
+        // sorter: sortSelect(x),
+        // "align": "right",
+        // "formatter": "progress",
+        // mutator:fieldMutator,
+        "cellClick": function (e, cell) {
+          console.log("cell click", cell)
+        },
+      },
+      {
+        "title": "Date",
+        "field": "Date",
+        // "sorter": sorterRank,
+        // "width": 200,
+        "editor": true,
+        headerFilter: true,
+        // sorter: sortSelect(x),
+        // "align": "right",
+        // "formatter": "progress",
+        // mutator:fieldMutator,
+        "cellClick": function (e, cell) {
+          console.log("cell click", cell)
+        },
+      },{
+        "title": "Security initiated",
+        "field": "Security initiated",
+        // "sorter": sorterRank,
+        // "width": 200,
+        "editor": true,
+        headerFilter: true,
+        // sorter: sortSelect(x),
+        // "align": "right",
+        // "formatter": "progress",
+        // mutator:fieldMutator,
+        "cellClick": function (e, cell) {
+          console.log("cell click", cell)
+        },
+      },{
+        "title": "dated",
+        "field": "dated",
+        // "sorter": sorterRank,
+        // "width": 200,
+        "editor": true,
+        headerFilter: true,
+        // sorter: sortSelect(x),
+        // "align": "right",
+        // "formatter": "progress",
+        // mutator:fieldMutator,
+        "cellClick": function (e, cell) {
+          console.log("cell click", cell)
+        },
+      },
+
+      // ...rawTableData.columns.map(x => {
+      //   console.log('rawElem', x)
+      //   if (x != 'Trade')
+      //     return {
+      //       "title": x,
+      //       "field": x,
+      //       "sorter": "string",
+      //       // "width": 200,
+      //       "editor": true,
+      //       headerFilter: true,
+      //       sorter: sortSelect(x),
+      //       // "align": "right",
+      //       // "formatter": "progress",
+      //       "cellClick": function (e, cell) {
+      //         console.log("cell click", cell)
+      //       },
+      //     }
+      // }, )
     ],
     // height:"100%",
     pagination: "local", //enable local pagination.
@@ -108,9 +219,17 @@ tableSetup = function (rawTableData) {
 
 };
 
+function preload() {
+  myData = loadTable("data2.csv", "header");
+  // while(myData===undefined){}
+  // console.log('dat now?', await loadTable("data.csv", "header"));
+}
+
 function setup() {
   // put setup code here
-  // console.log(data);
+  console.log('starting');
+  // setupTable(myData)
+
   tableSetup(myData)
   noLoop();
 }
@@ -119,6 +238,7 @@ function draw() {
   // put drawing code here
 }
 setupTable = function (data) {
+  // myData.getRows()[111].obj
   // var parentDiv = createDiv();
   // var headerDiv = createDiv().parent(parentDiv);
   // for (var e of data.columns) {
