@@ -3,6 +3,7 @@
 var myData, myRows, myTable;
 var myColumns;
 var fieldStuff = [];
+var summaryDiv;
 var RANKS = {
   "Lt Col": 0,
   "Maj": 1,
@@ -151,7 +152,7 @@ tableSetup = function (rawTableData) {
         "cellClick": function (e, cell) {
           console.log("cell click", cell)
         },
-      },{
+      }, {
         "title": "Security initiated",
         "field": "Security initiated",
         // "sorter": sorterRank,
@@ -165,7 +166,7 @@ tableSetup = function (rawTableData) {
         "cellClick": function (e, cell) {
           console.log("cell click", cell)
         },
-      },{
+      }, {
         "title": "dated",
         "field": "dated",
         // "sorter": sorterRank,
@@ -232,10 +233,33 @@ function setup() {
 
   tableSetup(myData)
   noLoop();
+  summaryDiv = document.getElementById('summaryDiv');
+  formatSummaryObj(summarize(myData)).parent(summaryDiv);
 }
 
 function draw() {
   // put drawing code here
+}
+
+formatSummaryObj = function (summaryObj) {
+  var parentDiv = createDiv();
+  // parentDiv.innerHTML='qqqqq';
+  for (var e in summaryObj) {
+    createSpan('<br>' + e + " : " + summaryObj[e]).parent(parentDiv);
+  }
+  // Total records <span id='spanTotalRecords'></span>
+
+  return parentDiv;
+}
+summarize = function (loadedTable) {
+  return {
+    "total": myTable.getRows().length,
+    "offrs": "TODO",
+    "jcos": "TODO",
+    "sldrs": "TODO",
+    "civs": "TODO",
+
+  }
 }
 setupTable = function (data) {
   // myData.getRows()[111].obj
